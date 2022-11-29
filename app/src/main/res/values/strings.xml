@@ -3,4 +3,8 @@
     <string name="animelist">AnimeList</string>
     <string name="to_liked_list">to liked list</string>
     <string name="search">search</string>
+    <string name="anime_image">anime image</string>
+    <string name="anime_name">anime name</string>
+    <string name="item_with_image_text_and_button">item with image, text and button</string>
+    <string name="dar_like_o_quitar">dar like o quitar</string>
 </resources>
