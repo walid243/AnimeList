@@ -1,25 +1,24 @@
-package com.example.animelist
+package com.example.animelist.fragments
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.animelist.AnimeListViewModel
+import com.example.animelist.databinding.FragmentAnimeListBinding
 
 class AnimeList : Fragment() {
-
-    companion object {
-        fun newInstance() = AnimeList()
-    }
-
+    private lateinit var binding: FragmentAnimeListBinding
     private lateinit var viewModel: AnimeListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_anime_list, container, false)
+        binding = FragmentAnimeListBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

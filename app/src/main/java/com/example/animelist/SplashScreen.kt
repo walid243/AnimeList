@@ -10,7 +10,6 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 @SuppressLint("CustomSplashScreen")
 class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
         val intent = Intent(this, MainActivity::class.java)
