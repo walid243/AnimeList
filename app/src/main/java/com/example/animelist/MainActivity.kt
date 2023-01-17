@@ -18,5 +18,6 @@ class MainActivity : AppCompatActivity() {
             replace(binding.fragmentContainerView.id, AnimeList())
             commit()
         }
+
     }
 }
