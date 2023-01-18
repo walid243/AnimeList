@@ -3,7 +3,6 @@ package com.example.animelist.view_models
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.animelist.model.Anime
 import com.example.animelist.model.Data
 import com.example.animelist.repository.Repository
 import kotlinx.coroutines.Dispatchers
@@ -18,12 +17,12 @@ class AnimeListViewModel: ViewModel() {
         fetchData()
     }
 
-    private fun fetchData() {
+    private fun fetchData(url:String = "") {
         viewModelScope.launch {
-            val animeList = withContext(Dispatchers.IO){
-                animeRepository.fetchData()
+            val response = withContext(Dispatchers.IO){
+                animeRepository.fetchData(url)
             }
-            data.postValue(animeList)
+            data.postValue(response)
         }
     }
 
