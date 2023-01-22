@@ -1,7 +1,8 @@
 package com.example.animelist
 
-import com.example.animelist.model.DataX
+import com.example.animelist.model.Anime
 
 interface AnimeListener {
-    fun onClick(anime: DataX)
+    fun onClick(anime: Anime)
+
 }

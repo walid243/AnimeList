@@ -12,38 +12,41 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animelist.AnimeListener
 import com.example.animelist.R
-import com.example.animelist.adapters.AnimeListAdapter
+import com.example.animelist.adapters.FavAnimeAdapter
 import com.example.animelist.databinding.FragmentAnimeListBinding
 import com.example.animelist.model.Anime
 import com.example.animelist.view_models.AnimeListViewModel
 
-class AnimeList : Fragment(), AnimeListener {
+
+class LikedList : Fragment(), AnimeListener {
 
     private lateinit var binding: FragmentAnimeListBinding
-    private lateinit var animeListAdapter: AnimeListAdapter
+    private lateinit var favAnimeListAdapter: FavAnimeAdapter
     private lateinit var linearLayoutManager: RecyclerView.LayoutManager
     private val viewModel: AnimeListViewModel by activityViewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAnimeListBinding.inflate(inflater,container,false)
+        binding.animelistTextView!!.text = "LikedList"
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        animeListAdapter = AnimeListAdapter(getAnimeList(), viewModel.favData, this)
+        favAnimeListAdapter = FavAnimeAdapter(viewModel.favData, this)
         linearLayoutManager = LinearLayoutManager(context)
         binding.recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = linearLayoutManager
-            adapter = animeListAdapter
+            adapter = favAnimeListAdapter
         }
         binding.toLikedListButton.setOnClickListener {
             parentFragmentManager.beginTransaction().apply {
-                replace(R.id.fragmentContainerView, LikedList())
+                replace(R.id.fragmentContainerView, AnimeList() )
                 setReorderingAllowed(true)
                 addToBackStack(null)
                 commit()
@@ -57,26 +60,11 @@ class AnimeList : Fragment(), AnimeListener {
                 commit()
             }
         }
-        viewModel.data.observe(viewLifecycleOwner, Observer {
-            animeListAdapter.notifyDataSetChanged()
-            animeListAdapter.animeList = getAnimeList()
-        })
-
         viewModel.favData.observe(viewLifecycleOwner, Observer {
-            animeListAdapter.notifyDataSetChanged()
-            animeListAdapter.favList = viewModel.favData
+            favAnimeListAdapter.notifyDataSetChanged()
+            favAnimeListAdapter.favAnimeList = viewModel.favData
         })
-        }
-
-
-    private fun getAnimeList(): MutableList<Anime> {
-        return if (viewModel.data.value != null) {
-            viewModel.data.value!! as MutableList<Anime>
-        } else {
-            mutableListOf()
-        }
     }
-
     override fun onClick(anime: Anime) {
         parentFragmentManager.setFragmentResult(
             "anime",
@@ -89,4 +77,5 @@ class AnimeList : Fragment(), AnimeListener {
             commit()
         }
     }
+
 }

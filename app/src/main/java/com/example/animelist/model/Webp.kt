@@ -1,9 +1,10 @@
 package com.example.animelist.model
 
 
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-
+@Parcelize
 @Serializable
 data class Webp(
     @SerialName("image_url")
@@ -12,4 +13,4 @@ data class Webp(
     val largeImageUrl: String,
     @SerialName("small_image_url")
     val smallImageUrl: String
-)
+): android.os.Parcelable

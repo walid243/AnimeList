@@ -1,8 +1,12 @@
 package com.example.animelist.repository
 
 import android.util.Log
+import com.example.animelist.AnimeListApplication
 import com.example.animelist.`interface`.ApiInterface
-import com.example.animelist.model.Data
+import com.example.animelist.model.Anime
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -18,18 +22,25 @@ class Repository {
         apiInterface = retrofit.create(ApiInterface::class.java)
     }
 
-    suspend fun fetchData(url:String): Data? {
-        println("fetching data")
-        val finalUrl = BASE_URL+ url
+    suspend fun fetchData(): List<Anime>? {
         val response = apiInterface.getAnimeList()
         return if(response.isSuccessful){
-            println("fetch done")
-            println("Response: ${response.body()?.data?.size}")
-            response.body()!!
+            println("images: ${response.body()!!.data[0]} <----- 31")
+            response.body()!!.data
         } else{
+            println("fetch failed <----- 31")
             Log.e("Error :", response.message())
             null
         }
     }
 
+    suspend fun importFavData(): MutableList<Anime> {
+        val favList = mutableListOf<Anime>()
+        withContext(Dispatchers.IO) {
+            AnimeListApplication.animeDataBase.animeDao().getAll().forEach {
+                favList.add(it)
+            }
+        }
+        return favList
+    }
 }

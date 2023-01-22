@@ -16,19 +16,21 @@
         android:contentDescription="@string/anime_image"
         android:scaleType="fitCenter"
         android:src="@drawable/loading"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/animeName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintVertical_bias="0.4" />
 
     <TextView
         android:id="@+id/animeName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="333dp"
+        android:layout_height="42dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:contentDescription="@string/anime_name"
         android:text="@string/anime_name"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Data(
     @SerialName("data")
-    val `data`: List<DataX>,
+    val `data`: List<Anime>,
     @SerialName("links")
     val links: Links,
     @SerialName("meta")
