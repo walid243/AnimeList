@@ -31,7 +31,7 @@ class AnimeDetail : Fragment() {
         parentFragmentManager.setFragmentResultListener("anime", this
         ) { _, result ->
             val anime = result.getParcelable<Anime>("anime")!!
-//            Glide.with(binding.root).load(anime.images.webp.imageUrl).into(binding.imgPhoto)
+            Glide.with(binding.root).load(anime.images.webp.imageUrl).into(binding.imgPhoto)
             binding.textViewTitle.text = anime.title
             binding.textViewDescription.text = anime.synopsis
             binding.textViewDescription.movementMethod = android.text.method.ScrollingMovementMethod()

@@ -8,17 +8,15 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.jetbrains.annotations.Nullable
 
-@Entity(tableName = "Anime")
 @Parcelize
 @Serializable
 data class Anime(
-    @PrimaryKey(autoGenerate = true) var id: Long = 0,
     @SerialName("mal_id")
     val malId: Int,
     @SerialName("episodes")
     val episodes: Int,
-//    @SerialName("images")
-//    val images: Images,
+    @SerialName("images")
+    val images: Images,
     @SerialName("status")
     val status: String,
     @SerialName("synopsis")

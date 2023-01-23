@@ -13,15 +13,15 @@ import com.example.animelist.model.Images
 import kotlinx.serialization.SerialName
 
 
-@Dao
-interface AnimeDAO {
-    @Query("SELECT * FROM Anime")
-    fun getAll(): List<Anime>
-    @Insert
-    fun addAnime(anime: Anime)
-    @Delete
-    fun deleteAnime(anime: Anime)
-    @Update
-    fun updateAnime(anime: Anime)
-
-}
+//@Dao
+//interface AnimeDAO {
+//    @Query("SELECT * FROM Anime")
+//    fun getAll(): List<Anime>
+//    @Insert
+//    fun addAnime(anime: Anime)
+//    @Delete
+//    fun deleteAnime(anime: Anime)
+//    @Update
+//    fun updateAnime(anime: Anime)
+//
+//}

@@ -16,8 +16,8 @@ class AnimeListViewModel: ViewModel() {
 
     init {
         fetchData()
-        importFavData()
-        checkFavData()
+//        importFavData()
+//        checkFavData()
     }
 
     private fun fetchData() {

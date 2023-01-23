@@ -8,13 +8,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.animelist.AnimeListApplication
 import com.example.animelist.AnimeListener
 import com.example.animelist.R
 import com.example.animelist.databinding.ItemLayoutBinding
 import com.example.animelist.model.Anime
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 class AnimeListAdapter(var animeList: MutableList<Anime>, var favList: MutableLiveData<MutableList<Anime>?>, val listener: AnimeListener): RecyclerView.Adapter<AnimeListAdapter.ViewHolder>(){
@@ -49,32 +47,30 @@ class AnimeListAdapter(var animeList: MutableList<Anime>, var favList: MutableLi
                     addToFav(anime)
                     setFavIcon(anime, binding)
                 } else {
-                    this@AnimeListAdapter.removeFromFav(anime)
+                    removeFromFav(anime)
                     setFavIcon(anime, binding)
                 }
             }
-//            Glide.with(context)
-//                .load(anime.images.webp.smallImageUrl)
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .centerCrop()
-//                .circleCrop()
-//                .into(binding.animeImage)
+            Glide.with(context)
+                .load(anime.images.webp.smallImageUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .centerCrop()
+                .circleCrop()
+                .into(binding.animeImage)
                }
     }
-    private suspend fun addToFav(anime: Anime) {
+    private fun addToFav(anime: Anime) {
         anime.isFav = true
         if (favList.value == null) {
             favList.value = mutableListOf()
         }
         favList.value!!.add(anime)
         favList.postValue(favList.value)
-        updateDataBase(anime)
     }
-    private suspend fun removeFromFav(anime: Anime) {
+    private fun removeFromFav(anime: Anime) {
         anime.isFav = false
         favList.value!!.remove(anime)
         favList.postValue(favList.value)
-        updateDataBase(anime)
     }
     private fun setFavIcon(anime: Anime, binding: ItemLayoutBinding ) {
         if (anime.isFav) {
@@ -86,7 +82,7 @@ class AnimeListAdapter(var animeList: MutableList<Anime>, var favList: MutableLi
 
     suspend fun updateDataBase(anime: Anime){
         withContext(Dispatchers.IO) {
-            AnimeListApplication.animeDataBase.animeDao().updateAnime(anime)
+//            AnimeListApplication.animeDataBase.animeDao().updateAnime(anime)
         }
     }
 }

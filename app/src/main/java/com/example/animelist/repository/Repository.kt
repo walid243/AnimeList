@@ -1,11 +1,9 @@
 package com.example.animelist.repository
 
 import android.util.Log
-import com.example.animelist.AnimeListApplication
 import com.example.animelist.`interface`.ApiInterface
 import com.example.animelist.model.Anime
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -37,9 +35,9 @@ class Repository {
     suspend fun importFavData(): MutableList<Anime> {
         val favList = mutableListOf<Anime>()
         withContext(Dispatchers.IO) {
-            AnimeListApplication.animeDataBase.animeDao().getAll().forEach {
-                favList.add(it)
-            }
+//            AnimeListApplication.animeDataBase.animeDao().getAll().forEach {
+//                favList.add(it)
+//            }
         }
         return favList
     }

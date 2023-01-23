@@ -48,12 +48,12 @@ class FavAnimeAdapter(var favAnimeList: MutableLiveData<MutableList<Anime>?>, va
                         removeFromFav(anime)
                         setFavIcon(anime, binding)
                 }
-//                Glide.with(context)
-//                    .load(anime.images.webp.smallImageUrl)
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .centerCrop()
-//                    .circleCrop()
-//                    .into(binding.animeImage)
+                Glide.with(context)
+                    .load(anime.images.webp.smallImageUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .centerCrop()
+                    .circleCrop()
+                    .into(binding.animeImage)
             }
 
         }
