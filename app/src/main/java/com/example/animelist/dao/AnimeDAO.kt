@@ -1,27 +1,20 @@
 package com.example.animelist.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Entity
-import androidx.room.Insert
-import androidx.room.PrimaryKey
-import androidx.room.Query
-import androidx.room.Update
-import com.example.animelist.model.Anime
-import com.example.animelist.model.Genre
-import com.example.animelist.model.Images
-import kotlinx.serialization.SerialName
+import androidx.room.*
+import com.example.animelist.model.AnimeEntity
 
 
-//@Dao
-//interface AnimeDAO {
-//    @Query("SELECT * FROM Anime")
-//    fun getAll(): List<Anime>
-//    @Insert
-//    fun addAnime(anime: Anime)
-//    @Delete
-//    fun deleteAnime(anime: Anime)
-//    @Update
-//    fun updateAnime(anime: Anime)
-//
-//}
+@Dao
+interface AnimeDAO {
+    @Query("SELECT * FROM AnimeEntity")
+    fun getAll(): List<AnimeEntity>
+    @Query("SELECT * FROM AnimeEntity WHERE title = :title")
+    fun getAnime(title: String): MutableList<AnimeEntity>
+    @Insert
+    fun addAnime(anime: AnimeEntity)
+    @Delete
+    fun deleteAnime(anime: AnimeEntity)
+    @Update
+    fun updateAnime(anime: AnimeEntity)
+
+}

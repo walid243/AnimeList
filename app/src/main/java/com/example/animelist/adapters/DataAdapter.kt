@@ -8,10 +8,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.animelist.AnimeListApplication
 import com.example.animelist.AnimeListener
 import com.example.animelist.R
 import com.example.animelist.databinding.ItemLayoutBinding
 import com.example.animelist.model.Anime
+import com.example.animelist.model.AnimeEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -44,7 +46,9 @@ class AnimeListAdapter(var animeList: MutableList<Anime>, var favList: MutableLi
             setFavIcon(anime, binding)
             binding.addOrRemoveToFav.setOnClickListener {
                 if (!anime.isFav) {
-                    addToFav(anime)
+                    withContext(Dispatchers.IO) {
+                        addToFav(anime)
+                    }
                     setFavIcon(anime, binding)
                 } else {
                     removeFromFav(anime)
@@ -59,16 +63,18 @@ class AnimeListAdapter(var animeList: MutableList<Anime>, var favList: MutableLi
                 .into(binding.animeImage)
                }
     }
-    private fun addToFav(anime: Anime) {
+    private suspend fun addToFav(anime: Anime) {
         anime.isFav = true
+        InsertToDataBase(anime)
         if (favList.value == null) {
             favList.value = mutableListOf()
         }
         favList.value!!.add(anime)
         favList.postValue(favList.value)
     }
-    private fun removeFromFav(anime: Anime) {
+    private suspend fun removeFromFav(anime: Anime) {
         anime.isFav = false
+        DeleteFromDataBase(anime)
         favList.value!!.remove(anime)
         favList.postValue(favList.value)
     }
@@ -80,9 +86,36 @@ class AnimeListAdapter(var animeList: MutableList<Anime>, var favList: MutableLi
         }
     }
 
-    suspend fun updateDataBase(anime: Anime){
+    suspend fun InsertToDataBase(anime: Anime){
+        val animeEntity = AnimeEntity(
+            malId = anime.malId,
+            title = anime.title,
+            episodes = anime.episodes,
+            isFav = anime.isFav,
+            synopsis = anime.synopsis,
+            type = anime.type,
+            url = anime.url,
+            year = anime.year,
+            status = anime.status,
+        )
         withContext(Dispatchers.IO) {
-//            AnimeListApplication.animeDataBase.animeDao().updateAnime(anime)
+            AnimeListApplication.animeDataBase.animeDao().addAnime(animeEntity)
+        }
+    }
+    suspend fun DeleteFromDataBase(anime: Anime){
+        val animeEntity = AnimeEntity(
+            malId = anime.malId,
+            title = anime.title,
+            episodes = anime.episodes,
+            isFav = anime.isFav,
+            synopsis = anime.synopsis,
+            type = anime.type,
+            url = anime.url,
+            year = anime.year,
+            status = anime.status,
+        )
+        withContext(Dispatchers.IO) {
+            AnimeListApplication.animeDataBase.animeDao().deleteAnime(animeEntity)
         }
     }
 }

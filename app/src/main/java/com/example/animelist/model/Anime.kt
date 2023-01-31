@@ -14,25 +14,25 @@ data class Anime(
     @SerialName("mal_id")
     val malId: Int,
     @SerialName("episodes")
-    val episodes: Int,
+    val episodes: Int = 0,
     @SerialName("images")
-    val images: Images,
+    val images: Images = Images(Jpg("","",""),Webp("","","")),
     @SerialName("status")
-    val status: String,
+    val status: String = "",
     @SerialName("synopsis")
-    val synopsis: String,
+    val synopsis: String = "",
     @SerialName("title")
-    val title: String,
+    val title: String = "",
     @SerialName("title_english")
-    val titleEnglish: String,
+    val titleEnglish: String = "",
     @SerialName("title_japanese")
-    val titleJapanese: String,
+    val titleJapanese: String = "",
     @SerialName("type")
-    val type: String,
+    val type: String = "",
     @SerialName("url")
-    val url: String,
+    val url: String = "",
     @SerialName("year")
-    val year: Int,
+    val year: Int = 0,
 
     var isFav: Boolean = false
 ): android.os.Parcelable

@@ -66,6 +66,8 @@ class AnimeList : Fragment(), AnimeListener {
             animeListAdapter.notifyDataSetChanged()
             animeListAdapter.favList = viewModel.favData
         })
+
+        binding
         }
 
 
